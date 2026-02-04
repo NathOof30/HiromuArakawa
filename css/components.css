@@ -1,0 +1,556 @@
+/* ============================================
+   COMPONENTS CSS - Site Hiromu Arakawa
+   ============================================
+   Boutons, cartes, modales, barre de progression
+   ============================================ */
+
+/* ========== BOUTONS ========== */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-md) var(--spacing-xl);
+    font-family: var(--font-title);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-bold);
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing-subtitle);
+    text-decoration: none;
+    border: var(--border-width) solid transparent;
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn:focus-visible {
+    outline: 2px solid var(--color-blue);
+    outline-offset: 2px;
+}
+
+/* Bouton primaire - Rouge sang */
+.btn-primary {
+    background-color: var(--color-red);
+    color: #ffffff;
+    border-color: var(--color-red-dark);
+}
+
+.btn-primary:hover {
+    background-color: var(--color-red-light);
+    box-shadow: var(--shadow-glow-blue);
+    transform: translateY(-2px);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+/* Bouton secondaire - Contour doré */
+.btn-secondary {
+    background-color: transparent;
+    color: var(--color-gold);
+    border-color: var(--color-gold);
+}
+
+.btn-secondary:hover {
+    background-color: var(--color-gold);
+    color: var(--color-black);
+    box-shadow: var(--shadow-glow-gold);
+}
+
+/* Bouton désactivé */
+.btn:disabled,
+.btn.is-disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+/* Effet de brillance sur les boutons */
+.btn::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg,
+            transparent 40%,
+            rgba(255, 255, 255, 0.1) 50%,
+            transparent 60%);
+    transform: translateX(-100%);
+    transition: transform 0.6s ease;
+}
+
+.btn:hover::after {
+    transform: translateX(100%);
+}
+
+/* ========== CARTES D'INFORMATION ========== */
+.card {
+    background-color: var(--color-bg-secondary);
+    border: var(--border-width) solid var(--color-gray);
+    padding: var(--spacing-xl);
+    position: relative;
+    transition: all var(--transition-normal);
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--color-red), var(--color-gold));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--transition-normal);
+}
+
+.card:hover::before {
+    transform: scaleX(1);
+}
+
+.card__title {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--spacing-md);
+}
+
+.card__content {
+    color: var(--color-text-secondary);
+}
+
+.card__footer {
+    margin-top: var(--spacing-lg);
+    padding-top: var(--spacing-md);
+    border-top: 1px solid var(--color-gray);
+}
+
+/* Carte avec image */
+.card--with-image {
+    padding: 0;
+}
+
+.card__image {
+    width: 100%;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    background-color: var(--color-black);
+}
+
+.card__body {
+    padding: var(--spacing-xl);
+}
+
+/* ========== SECTIONS VERROUILLÉES ========== */
+.section-locked {
+    position: relative;
+    overflow: hidden;
+}
+
+.section-locked::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: rgba(32, 25, 25, 0.85);
+    backdrop-filter: blur(8px);
+    z-index: 10;
+}
+
+.lock-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 11;
+    text-align: center;
+    padding: var(--spacing-2xl);
+}
+
+.lock-icon {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto var(--spacing-xl);
+    position: relative;
+}
+
+/* Cercle alchimique autour du cadenas */
+.lock-icon::before {
+    content: '';
+    position: absolute;
+    inset: -20px;
+    border: 2px dashed var(--color-gray);
+    border-radius: 50%;
+    animation: rotate-slow 20s linear infinite;
+}
+
+.lock-icon svg {
+    width: 100%;
+    height: 100%;
+    stroke: var(--color-gray);
+    fill: none;
+    stroke-width: 2;
+}
+
+.lock-message {
+    font-family: var(--font-accent);
+    font-size: var(--font-size-md);
+    color: var(--color-gray);
+    margin-bottom: var(--spacing-lg);
+}
+
+/* État déverrouillé */
+.section-unlocked .lock-overlay {
+    animation: unlock-fade 0.8s ease forwards;
+}
+
+.section-unlocked::before {
+    animation: unlock-reveal 0.8s ease forwards;
+}
+
+/* ========== BARRE DE PROGRESSION ========== */
+.progress-bar {
+    position: fixed;
+    right: var(--spacing-lg);
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: var(--z-nav);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.progress-tube {
+    width: 20px;
+    height: 300px;
+    background: linear-gradient(180deg,
+            rgba(142, 142, 141, 0.3) 0%,
+            rgba(142, 142, 141, 0.1) 100%);
+    border: 2px solid var(--color-gray);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Effet de verre industriel */
+.progress-tube::before {
+    content: '';
+    position: absolute;
+    left: 2px;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: linear-gradient(180deg,
+            rgba(255, 255, 255, 0.2),
+            transparent);
+}
+
+.progress-liquid {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 0%;
+    background: linear-gradient(0deg,
+            var(--color-blue) 0%,
+            var(--color-blue-light) 100%);
+    transition: height var(--transition-slow);
+    box-shadow: 0 -5px 20px var(--color-blue);
+}
+
+/* Bulles dans le liquide */
+.progress-liquid::after {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    left: 50%;
+    bottom: 20%;
+    animation: bubble-rise 3s ease-in-out infinite;
+}
+
+.progress-marker {
+    width: 12px;
+    height: 12px;
+    background-color: var(--color-gray);
+    border: 2px solid var(--color-gray-light);
+    transition: all var(--transition-normal);
+    cursor: pointer;
+}
+
+.progress-marker.is-active {
+    background-color: var(--color-blue);
+    box-shadow: var(--shadow-glow-blue);
+}
+
+.progress-marker.is-completed {
+    background-color: var(--color-gold);
+    box-shadow: var(--shadow-glow-gold);
+}
+
+.progress-marker:hover {
+    transform: scale(1.2);
+}
+
+/* ========== MODALES ========== */
+.modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.85);
+    z-index: var(--z-modal-backdrop);
+    opacity: 0;
+    visibility: hidden;
+    transition: all var(--transition-normal);
+}
+
+.modal-backdrop.is-open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    z-index: var(--z-modal);
+    background-color: var(--color-bg-secondary);
+    border: var(--border-width-thick) solid var(--color-gray);
+    max-width: 90vw;
+    max-height: 90vh;
+    overflow: auto;
+    opacity: 0;
+    visibility: hidden;
+    transition: all var(--transition-normal);
+}
+
+.modal.is-open {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* Décoration des coins style industriel */
+.modal::before,
+.modal::after {
+    content: '';
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border: 2px solid var(--color-gold);
+}
+
+.modal::before {
+    top: -5px;
+    left: -5px;
+    border-right: none;
+    border-bottom: none;
+}
+
+.modal::after {
+    bottom: -5px;
+    right: -5px;
+    border-left: none;
+    border-top: none;
+}
+
+.modal__header {
+    padding: var(--spacing-xl);
+    border-bottom: 1px solid var(--color-gray);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal__title {
+    margin: 0;
+    font-size: var(--font-size-xl);
+}
+
+.modal__close {
+    width: 40px;
+    height: 40px;
+    background: none;
+    border: 2px solid var(--color-gray);
+    color: var(--color-gray);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-fast);
+}
+
+.modal__close:hover {
+    border-color: var(--color-red);
+    color: var(--color-red);
+    transform: rotate(90deg);
+}
+
+.modal__body {
+    padding: var(--spacing-xl);
+}
+
+.modal__footer {
+    padding: var(--spacing-xl);
+    border-top: 1px solid var(--color-gray);
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--spacing-md);
+}
+
+/* ========== BADGES & TAGS ========== */
+.badge {
+    display: inline-block;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-family: var(--font-accent);
+    font-size: var(--font-size-xs);
+    text-transform: uppercase;
+    border: 1px solid currentColor;
+}
+
+.badge--success {
+    color: var(--color-success);
+}
+
+.badge--gold {
+    color: var(--color-gold);
+}
+
+.badge--red {
+    color: var(--color-red);
+}
+
+/* ========== NOTIFICATIONS / TOASTS ========== */
+.toast {
+    position: fixed;
+    bottom: var(--spacing-xl);
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background-color: var(--color-bg-secondary);
+    border: 2px solid var(--color-gold);
+    padding: var(--spacing-md) var(--spacing-xl);
+    z-index: var(--z-notification);
+    opacity: 0;
+    transition: all var(--transition-normal);
+}
+
+.toast.is-visible {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+.toast__icon {
+    margin-right: var(--spacing-sm);
+}
+
+/* ========== TOOLTIPS ========== */
+[data-tooltip] {
+    position: relative;
+    cursor: help;
+}
+
+[data-tooltip]::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--color-black);
+    border: 1px solid var(--color-gray);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-family: var(--font-body);
+    font-size: var(--font-size-xs);
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all var(--transition-fast);
+    pointer-events: none;
+}
+
+[data-tooltip]:hover::after {
+    opacity: 1;
+    visibility: visible;
+    bottom: calc(100% + 5px);
+}
+
+/* ========== ANIMATIONS KEYFRAMES ========== */
+@keyframes rotate-slow {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes unlock-fade {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+@keyframes unlock-reveal {
+    0% {
+        backdrop-filter: blur(8px);
+        background-color: rgba(32, 25, 25, 0.85);
+    }
+
+    100% {
+        backdrop-filter: blur(0);
+        background-color: transparent;
+    }
+}
+
+@keyframes bubble-rise {
+
+    0%,
+    100% {
+        transform: translateX(-50%) translateY(0);
+        opacity: 0.5;
+    }
+
+    50% {
+        transform: translateX(-30%) translateY(-20px);
+        opacity: 1;
+    }
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 768px) {
+    .progress-bar {
+        right: var(--spacing-sm);
+    }
+
+    .progress-tube {
+        height: 200px;
+        width: 16px;
+    }
+
+    .modal {
+        max-width: 95vw;
+    }
+}
+
+@media (max-width: 480px) {
+    .progress-bar {
+        display: none;
+        /* Masquer sur mobile, navigation alternative */
+    }
+
+    .btn {
+        padding: var(--spacing-sm) var(--spacing-md);
+        font-size: var(--font-size-xs);
+    }
+}
