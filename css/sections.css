@@ -106,6 +106,7 @@
     text-align: center;
     color: var(--color-gold);
     margin-bottom: var(--spacing-xl);
+    margin: 0 auto;
 }
 
 /* Zone pour le puzzle */
@@ -152,9 +153,10 @@
 
 .terre__image-zone {
     width: 100%;
-    /*aspect-ratio: 4/3;*/
+    /* aspect-ratio: 4/3; */
     background-color: rgba(0, 0, 0, 0.3);
     border: 2px dashed var(--color-gray);
+    display: flex;
     align-items: center;
     justify-content: center;
     /*
@@ -162,6 +164,7 @@
     <img src="assets/images/hokkaido.jpg" alt="Paysage de Hokkaido">
   */
 }
+
 .terre__image-zone img {
     width: 100%;
 }
@@ -321,12 +324,6 @@
   */
 }
 
-.multivers__work-image::after {
-    content: attr(data-placeholder);
-    color: var(--color-gray);
-    font-family: var(--font-accent);
-}
-
 .multivers__work-body {
     padding: var(--spacing-lg);
 }
@@ -368,12 +365,6 @@
     padding: var(--spacing-2xl);
     border: none;
     background: linear-gradient(135deg, rgba(219, 180, 72, 0.1), transparent);
-}
-
-.heritage__final-quote::before {
-    left: 50%;
-    transform: translateX(-50%);
-    top: -30px;
 }
 
 /* Zone du certificat */
@@ -486,6 +477,10 @@
 
 /* ========== FOOTER ========== */
 .site-footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     background-color: var(--color-black);
     border-top: 1px solid var(--color-gray);
     padding: var(--spacing-xl);
@@ -496,6 +491,7 @@
     font-family: var(--font-accent);
     font-size: var(--font-size-sm);
     color: var(--color-gray);
+    margin-bottom: 0;
 }
 
 /* ========== RESPONSIVE ========== */

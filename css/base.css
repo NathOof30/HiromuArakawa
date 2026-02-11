@@ -79,7 +79,7 @@ h6 {
 
 p {
     margin-bottom: var(--spacing-md);
-    max-width: 70ch;
+    max-width: 80ch;
     /* Largeur optimale pour la lecture */
 }
 
@@ -99,17 +99,6 @@ blockquote {
     padding-left: var(--spacing-lg);
     margin: var(--spacing-xl) 0;
     position: relative;
-}
-
-blockquote::before {
-    content: '"';
-    font-family: var(--font-title);
-    font-size: var(--font-size-3xl);
-    color: var(--color-gold);
-    opacity: 0.3;
-    position: absolute;
-    left: var(--spacing-sm);
-    top: -var(--spacing-md);
 }
 
 /* ========== LIENS ========== */
