@@ -152,10 +152,9 @@
 
 .terre__image-zone {
     width: 100%;
-    aspect-ratio: 4/3;
+    /*aspect-ratio: 4/3;*/
     background-color: rgba(0, 0, 0, 0.3);
     border: 2px dashed var(--color-gray);
-    display: flex;
     align-items: center;
     justify-content: center;
     /*
@@ -163,11 +162,8 @@
     <img src="assets/images/hokkaido.jpg" alt="Paysage de Hokkaido">
   */
 }
-
-.terre__image-zone::after {
-    content: '📷 Image Hokkaido';
-    color: var(--color-gray);
-    font-family: var(--font-accent);
+.terre__image-zone img {
+    width: 100%;
 }
 
 /* Citation de la famille */
