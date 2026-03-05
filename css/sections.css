@@ -66,55 +66,48 @@
     opacity: 0.1;
 }
 
-/* ========== SECTION 1: L'ATELIER ========== */
-.section--atelier {
-    background: var(--section1-bg);
-}
-
 /* Zone pour l'avatar de la vache */
 .atelier__avatar-zone {
     width: 250px;
-    height: 250px;
     margin: 0 auto var(--spacing-2xl);
     border: 3px dashed var(--color-gold);
+    
+    /* On garde le flex pour centrer l'image parfaitement */
     display: flex;
     align-items: center;
     justify-content: center;
-    position: relative;
-    /* 
-    ASSET: Insérer ici l'avatar de la vache à lunettes
-    Remplacer le contenu par:
-    <img src="assets/images/cow-avatar.png" alt="Avatar d'Hiromu Arakawa - Vache à lunettes">
-  */
+    
+    position: relative; 
+    overflow: hidden; /* Empêche l'image de dépasser si elle est trop grande */
 }
 
+/* Le point d'interrogation */
 .atelier__avatar-zone::before {
     content: '?';
     font-family: var(--font-title);
     font-size: 6rem;
     color: var(--color-gold);
     opacity: 0.5;
+    
+    /* SOLUTION : On le place en absolu pour qu'il ne gêne pas l'image */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
+/* Quand on révèle l'image */
 .atelier__avatar-zone.is-revealed::before {
-    content: none;
+    display: none;
 }
 
-.atelier__mystery-text {
-    font-family: var(--font-accent);
-    font-size: var(--font-size-lg);
-    text-align: center;
-    color: var(--color-gold);
-    margin-bottom: var(--spacing-xl);
-}
-
-/* Zone pour le puzzle */
-.atelier__puzzle-area {
-    background-color: rgba(0, 0, 0, 0.3);
-    border: 2px solid var(--color-gray);
-    padding: var(--spacing-xl);
-    margin: var(--spacing-xl) auto;
-    max-width: 500px;
+/* L'image elle-même */
+.atelier__avatar-zone img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; /* Important si l'image n'est pas carrée */
+    display: block;
+    z-index: 2; /* S'assure que l'image passe devant tout le reste */
 }
 
 /* ========== SECTION 2: LA TERRE ========== */
