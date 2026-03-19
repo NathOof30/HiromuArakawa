@@ -111,6 +111,11 @@
     object-fit: contain;
 }
 
+.atelier__avatar-zone.is-revealed img {
+    object-fit: cover;
+    object-position: center;
+}
+
 .atelier__mystery-text {
     font-family: var(--font-accent);
     font-size: var(--font-size-lg);
