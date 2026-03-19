@@ -97,16 +97,34 @@ const App = {
      */
     initScrollObserver() {
         const sections = document.querySelectorAll('.section');
+        const sectionVisibility = new Map();
+
+        sections.forEach(section => {
+            const sectionNum = parseInt(section.dataset.section);
+            sectionVisibility.set(sectionNum, 0);
+        });
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const sectionNum = parseInt(entry.target.dataset.section);
-                    this.setActiveSection(sectionNum);
+                const sectionNum = parseInt(entry.target.dataset.section);
+                sectionVisibility.set(sectionNum, entry.isIntersecting ? entry.intersectionRatio : 0);
+            });
+
+            let activeSection = this.state.currentSection;
+            let maxRatio = -1;
+
+            sectionVisibility.forEach((ratio, sectionNum) => {
+                if (ratio > maxRatio) {
+                    maxRatio = ratio;
+                    activeSection = sectionNum;
                 }
             });
+
+            if (maxRatio > 0) {
+                this.setActiveSection(activeSection);
+            }
         }, {
-            threshold: 0.5
+            threshold: [0.35, 0.5, 0.65, 0.8]
         });
 
         sections.forEach(section => observer.observe(section));
@@ -151,7 +169,9 @@ const App = {
         // Mettre à jour les marqueurs
         document.querySelectorAll('.progress-marker').forEach(marker => {
             const markerSection = parseInt(marker.dataset.section);
-            marker.classList.toggle('is-completed', markerSection < this.state.unlockedSections);
+            const isCompleted = markerSection < this.state.unlockedSections
+                || (this.state.unlockedSections === 5 && markerSection === 5);
+            marker.classList.toggle('is-completed', isCompleted);
         });
     },
 
