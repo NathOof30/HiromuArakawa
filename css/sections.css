@@ -375,11 +375,13 @@
 /* Cartes des œuvres */
 .multivers__works {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: var(--spacing-xl);
 }
 
 .multivers__work-card {
+    display: flex;
+    flex-direction: column;
     background-color: rgba(0, 0, 0, 0.4);
     border: 2px solid var(--color-gray);
     overflow: hidden;
@@ -404,14 +406,50 @@
   */
 }
 
+.multivers__work-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
 .multivers__work-body {
     padding: var(--spacing-lg);
+}
+
+/* 4e tuile: occupe toute la 2e ligne et passe en layout horizontal */
+.multivers__work-card:nth-child(4) {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: stretch;
+    min-height: 320px;
+}
+
+.multivers__work-card:nth-child(4) .multivers__work-image {
+    aspect-ratio: auto;
+    height: 100%;
+    border-bottom: 0;
+    border-right: 2px solid var(--color-gray);
+}
+
+.multivers__work-card:nth-child(4) .multivers__work-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
 }
 
 .multivers__work-title {
     font-size: var(--font-size-md);
     color: var(--color-red);
     margin-bottom: var(--spacing-sm);
+}
+
+.multivers__work-years {
+    display: inline-block;
+    margin-top: 0.15em;
+    color: var(--color-gold);
 }
 
 .multivers__work-desc {
@@ -592,6 +630,29 @@
     .atelier__avatar-zone {
         width: 180px;
         height: 180px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .multivers__works {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .multivers__work-card:nth-child(4) {
+        grid-column: 1 / -1;
+    }
+}
+
+@media (max-width: 992px) {
+    .multivers__work-card:nth-child(4) {
+        grid-template-columns: 1fr;
+        min-height: auto;
+    }
+
+    .multivers__work-card:nth-child(4) .multivers__work-image {
+        min-height: 240px;
+        border-right: 0;
+        border-bottom: 2px solid var(--color-gray);
     }
 }
 
