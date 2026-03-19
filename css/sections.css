@@ -90,6 +90,11 @@
 
 .atelier__avatar-zone::before {
     content: '?';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    line-height: 1;
     font-family: var(--font-title);
     font-size: 6rem;
     color: var(--color-gold);
@@ -98,6 +103,12 @@
 
 .atelier__avatar-zone.is-revealed::before {
     content: none;
+}
+
+.atelier__avatar-zone img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
 
 .atelier__mystery-text {
@@ -230,6 +241,12 @@
     aspect-ratio: 1;
     margin: var(--spacing-2xl) auto;
     position: relative;
+    border-radius: 50%;
+    transition: filter var(--transition-normal), transform var(--transition-normal), background var(--transition-slow);
+    background: radial-gradient(circle at center,
+            rgba(112, 203, 255, 0.06) 0%,
+            rgba(112, 203, 255, 0.02) 45%,
+            transparent 70%);
     /*
     ASSET: Insérer ici le cercle de transmutation en PNG/SVG
     Le cercle servira de zone de jeu
@@ -243,6 +260,7 @@
     border: 2px solid var(--color-blue);
     border-radius: 50%;
     opacity: 0.5;
+    transition: all var(--transition-normal);
 }
 
 .metal__transmutation-zone::after {
@@ -253,6 +271,68 @@
     border-radius: 50%;
     opacity: 0.3;
     animation: pulse 2s ease-in-out infinite;
+    transition: all var(--transition-normal);
+}
+
+.metal__transmutation-zone .particles-container {
+    opacity: 0;
+    transition: opacity var(--transition-normal);
+}
+
+.metal__transmutation-zone.is-activated {
+    background:
+        radial-gradient(circle at center,
+            rgba(219, 180, 72, 0.24) 0%,
+            rgba(112, 203, 255, 0.16) 38%,
+            rgba(112, 203, 255, 0.03) 62%,
+            transparent 76%),
+        conic-gradient(from 90deg,
+            rgba(219, 180, 72, 0.45) 0deg,
+            rgba(219, 180, 72, 0) 20deg,
+            rgba(112, 203, 255, 0.45) 40deg,
+            rgba(112, 203, 255, 0) 60deg,
+            rgba(219, 180, 72, 0.45) 80deg,
+            rgba(219, 180, 72, 0) 100deg,
+            rgba(112, 203, 255, 0.45) 120deg,
+            rgba(112, 203, 255, 0) 140deg,
+            rgba(219, 180, 72, 0.45) 160deg,
+            rgba(219, 180, 72, 0) 180deg,
+            rgba(112, 203, 255, 0.45) 200deg,
+            rgba(112, 203, 255, 0) 220deg,
+            rgba(219, 180, 72, 0.45) 240deg,
+            rgba(219, 180, 72, 0) 260deg,
+            rgba(112, 203, 255, 0.45) 280deg,
+            rgba(112, 203, 255, 0) 300deg,
+            rgba(219, 180, 72, 0.45) 320deg,
+            rgba(219, 180, 72, 0) 340deg,
+            rgba(112, 203, 255, 0.45) 360deg);
+    filter:
+        drop-shadow(0 0 16px rgba(112, 203, 255, 0.45))
+        drop-shadow(0 0 28px rgba(219, 180, 72, 0.3));
+    transform: scale(1.02);
+}
+
+.metal__transmutation-zone.is-activated::before {
+    inset: 11%;
+    border-color: var(--color-gold);
+    box-shadow: inset 0 0 20px rgba(219, 180, 72, 0.35);
+    opacity: 0.95;
+    animation: transmutation-complete-spin 14s linear infinite;
+}
+
+.metal__transmutation-zone.is-activated::after {
+    inset: 2%;
+    border-width: 4px;
+    border-color: rgba(112, 203, 255, 0.95);
+    opacity: 0.95;
+    box-shadow:
+        0 0 22px rgba(112, 203, 255, 0.65),
+        0 0 40px rgba(219, 180, 72, 0.35);
+    animation: transmutation-complete-pulse 2.2s ease-in-out infinite;
+}
+
+.metal__transmutation-zone.is-activated .particles-container {
+    opacity: 1;
 }
 
 /* Composition chimique du corps humain */
@@ -537,5 +617,27 @@
     50% {
         opacity: 0.6;
         transform: scale(1.02);
+    }
+}
+
+@keyframes transmutation-complete-spin {
+    from {
+        transform: rotate(0deg) scale(1);
+    }
+
+    to {
+        transform: rotate(360deg) scale(1);
+    }
+}
+
+@keyframes transmutation-complete-pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.04);
     }
 }

@@ -155,12 +155,50 @@ const App = {
         });
     },
 
+    /**
+     * Révèle l'avatar de la section 1 après réussite du puzzle
+     */
+    revealAtelierAvatar() {
+        const avatarZone = document.getElementById('avatar-zone');
+        const avatarImage = document.getElementById('avatar-image');
+
+        if (!avatarZone || !avatarImage) return;
+
+        avatarZone.classList.add('is-revealed');
+        avatarImage.classList.remove('is-hidden');
+    },
+
+    /**
+     * Active la version complétée du cercle de transmutation (section 3)
+     */
+    activateTransmutationZone() {
+        const transmutationZone = document.getElementById('transmutation-zone');
+        const particlesContainer = document.getElementById('particles-container');
+
+        if (!transmutationZone) return;
+
+        transmutationZone.classList.add('is-activated');
+
+        if (particlesContainer && !particlesContainer.dataset.active) {
+            Utils.createParticles(particlesContainer, 28);
+            particlesContainer.dataset.active = 'true';
+        }
+    },
+
     // ========== SYSTÈME DE DÉVERROUILLAGE ==========
 
     /**
      * Applique l'état déverrouillé aux sections
      */
     applyUnlockedState() {
+        if (this.state.unlockedSections >= 2) {
+            this.revealAtelierAvatar();
+        }
+
+        if (this.state.unlockedSections >= 4) {
+            this.activateTransmutationZone();
+        }
+
         for (let i = 2; i <= 5; i++) {
             const section = document.querySelector(`section[data-section="${i}"]`);
             const navLink = document.querySelector(`.site-nav__link[data-section="${i}"]`);
@@ -193,6 +231,14 @@ const App = {
         if (sectionNum <= this.state.unlockedSections) return;
 
         console.log(`🔓 DÉBUT Déverrouillage section ${sectionNum}...`);
+
+        if (sectionNum === 2) {
+            this.revealAtelierAvatar();
+        }
+
+        if (sectionNum === 4) {
+            this.activateTransmutationZone();
+        }
 
         this.state.unlockedSections = sectionNum;
 

@@ -202,6 +202,7 @@ const Games = {
                 this.isComplete = true;
                 status.textContent = '✅ Puzzle complété ! Portrait révélé.';
                 status.style.color = '#4a9f4a';
+                window.App?.revealAtelierAvatar();
 
                 // Déclencher déverrouillage après délai
                 setTimeout(() => {
@@ -578,6 +579,7 @@ const Games = {
         complete() {
             this.isComplete = true;
             this.updateStatus('✨ Transmutation réussie !');
+            window.App?.activateTransmutationZone();
 
             // Animation de transmutation
             const circle = document.querySelector('.transmutation-circle');
