@@ -324,7 +324,10 @@
     border: var(--border-width-thick) solid var(--color-gray);
     max-width: 90vw;
     max-height: 90vh;
-    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    overflow: hidden;
     opacity: 0;
     visibility: hidden;
     transition: all var(--transition-normal);
@@ -394,6 +397,17 @@
 
 .modal__body {
     padding: var(--spacing-xl);
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.modal__body::-webkit-scrollbar {
+    width: 0;
+    height: 0;
 }
 
 .modal__footer {
